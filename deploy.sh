@@ -6,7 +6,7 @@ set -e
 # Configuration
 NODE_IP="10.12.10.27"
 MONGO_IP="10.12.10.28"
-APP_DIR="/home/gerty/tusenfryd"
+APP_DIR="/home/max/tusenfryd"
 
 # Update system
 echo "Updating system..."
@@ -19,18 +19,7 @@ sudo apt install -y docker.io docker-compose nginx
 
 # Add user to docker group
 echo "Adding user to docker group..."
-sudo usermod -aG docker gerty
-
-# Create application directory
-echo "Creating application directory..."
-mkdir -p $APP_DIR
-cd $APP_DIR
-
-# Clone repository (if not already done)
-if [ ! -d ".git" ]; then
-    echo "Cloning repository..."
-    git clone https://github.com/gerty/tusenfryd.git .
-fi
+sudo usermod -aG docker max
 
 # Create environment files
 echo "Creating environment files..."
