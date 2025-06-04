@@ -5,6 +5,7 @@ const cors = require('cors');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 const winston = require('winston');
+const routes = require('./routes');
 
 // Initialize Express app
 const app = express();
@@ -40,6 +41,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Use routes
+app.use('/', routes);
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   logger.error(err.stack);
@@ -58,7 +62,7 @@ app.use((req, res) => {
 });
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/tusenfryd', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://10.12.10.28:27017/tusenfryd', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
