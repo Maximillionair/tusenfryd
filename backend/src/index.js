@@ -5,7 +5,7 @@ const cors = require('cors');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 const winston = require('winston');
-const routes = require('./routes');
+const mainRouter = require('./api/mainRouter');
 
 // Initialize Express app
 const app = express();
@@ -41,8 +41,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Use routes
-app.use('/', routes);
+// Use main router
+app.use('/', mainRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

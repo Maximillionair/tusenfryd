@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_URL=https://10.12.10.27/api
+    networks:
+      - app_network
+
   backend:
     build:
       context: ./backend
@@ -35,8 +48,10 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/ssl:/etc/nginx/ssl
+      - ./frontend/build:/usr/share/nginx/html
     depends_on:
       - backend
+      - frontend
     networks:
       - app_network
 
